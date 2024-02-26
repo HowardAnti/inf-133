@@ -1,7 +1,7 @@
+
 from zeep import Client
 
-#postman xml
-
-client = Client("https://www.dataaccess.com/webservicesserver/NumberConversion.wso?WSDL")
-result = client.service.NumberToWords(5)
+client = Client("http://localhost:8000")
+result = client.service.Saludar("Howard")
 print(result)
+
