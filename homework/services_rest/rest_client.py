@@ -1,16 +1,5 @@
 import requests
-import json
 
-card_number = "BT1-010"
-
-urld = f"https://digimoncard.io/api-public/search.php?card={card_number}"
-
-response = requests.request(
-    method="GET",
-    url=urld,
-    headers={"Content-type": "application/json"},
-    data={}
-)
 
 url = "http://localhost:8000/"
 
@@ -58,11 +47,27 @@ print(response3.text)
 
 '''
 
-ruta_contar = url + "contar_estudiantes"
+ruta_nombre_inicial = url + "nombre/P"
+
+response3 = requests.request(
+    method="GET",
+    url=ruta_nombre_inicial
+)
+
+
+ruta_carrera = url + "carreras"
 
 response4 = requests.request(
-    method="COUNT",
+    method="GET",
+    url=ruta_carrera
+)
+
+ruta_contar = url + "numero_total"
+
+response5 = requests.request(
+    method="GET",
     url=ruta_contar
 )
+
 
 print(response4.text)
