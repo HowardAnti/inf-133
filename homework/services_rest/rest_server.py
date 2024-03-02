@@ -66,13 +66,6 @@ class RESTRequestHandler(BaseHTTPRequestHandler):
                     estudiantes_seleccionados.append(estudiante)
 
             self.wfile.write(json.dumps(estudiantes_seleccionados).encode('utf-8'))
-
-        elif self.path == '/total_estudiantes':
-            count = len(estudiantes)
-            self.send_response(200)
-            self.send_header('Content-type', 'application/json')
-            self.end_headers()
-            self.wfile.write(json.dumps(count).encode('utf-8'))
         
         elif self.path == '/contar_carreras':
             self.send_response(200)
@@ -84,6 +77,13 @@ class RESTRequestHandler(BaseHTTPRequestHandler):
                     if carreras_actualizada["nombre"] == estudiante["carrera"]:
                         carreras_actualizada["nro_estudiantes"] = carreras_actualizada["nro_estudiantes"] + 1
             self.wfile.write(json.dumps(carreras_actualizadas).encode('utf-8'))
+        
+        elif self.path == '/total_estudiantes':
+            count = len(estudiantes)
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps(count).encode('utf-8'))
         
         else:
             self.send_response(404)
