@@ -5,7 +5,8 @@ import sqlite3
 conn = sqlite3.connect("restaurante.db")
 
 # Crear tabla de carreras
-conn.execute(
+try:
+    conn.execute(
     """
     CREATE TABLE PLATOS
     (id INTEGER PRIMARY KEY,
@@ -14,20 +15,11 @@ conn.execute(
     categoria TEXT NOT NULL);
     """
 )
+except sqlite3.OperationalError:
+    print("La tabla Platos ya existe")  
 
 # Insertar datos de carreras
-conn.execute(
-    """
-    INSERT INTO PLATOS (nombre, precio, categoria) 
-    VALUES ('Majadito', 14, 'Segundo')
-    """
-)
-conn.execute(
-    """
-    INSERT INTO PLATOS (nombre, precio, categoria) 
-    VALUES ('Plato Paceno', 18, 'Segundo')
-    """
-)
+
 
 # Consultar datos
 print("PLATOS:")
@@ -35,22 +27,18 @@ cursor = conn.execute("SELECT * FROM PLATOS")
 for row in cursor:
     print(row)
 
-
-conn.execute(
-    """
-    CREATE TABLE MESAS
-    (id INTEGER PRIMARY KEY,
-    numero INT NOT NULL);
-    """
-)
-
+try:
+    conn.execute(
+        """
+        CREATE TABLE MESAS
+        (id INTEGER PRIMARY KEY,
+        numero INT NOT NULL);
+        """
+    )
+except sqlite3.OperationalError:
+    print("La tabla Platos ya existe")  
 # Insertar datos de estudiantes
-conn.execute(
-    """
-    INSERT INTO ESTUDIANTES (numero) 
-    VALUES (2)
-    """
-)
+
 
 
 # Consultar datos de estudiantes
@@ -64,29 +52,30 @@ for row in cursor:
 # (2, 'María', 'Lopez', '1999-08-20')
 
 # Crear tabla de matriculación
-conn.execute(
-    """
-    CREATE TABLE PEDIDOS
-    (id INTEGER PRIMARY KEY,
-    plato_id INTEGER NOT NULL,
-    mesa_id INTEGER NOT NULL,
-    cantidad INT NOT NULL,
-    cantidad DATE NOT NULL,
-    FOREIGN KEY (plato_id) REFERENCES PLATOS(id),
-    FOREIGN KEY (mesa_id) REFERENCES MESAS(id));
-    """
-)
 
+try:
+    conn.execute(
+        """
+        CREATE TABLE PEDIDOS
+        (id INTEGER PRIMARY KEY,
+        plato_id INTEGER NOT NULL,
+        mesa_id INTEGER NOT NULL,
+        cantidad INT NOT NULL,
+        fecha DATE NOT NULL,
+        FOREIGN KEY (plato_id) REFERENCES PLATOS(id),
+        FOREIGN KEY (mesa_id) REFERENCES MESAS(id));
+        """
+    )
+except sqlite3.OperationalError:
+    print("La tabla Pedidos ya existe")  
 # Insertar datos de matriculación
-conn.execute(
-    """
-    INSERT INTO PEDIDOS (plato_id, mesa_id, cantidad, fecha) 
-    VALUES (1, 1, 3, '2024-01-15')
-    """
-)
 
 
+print("\nPEDIDOS:")
+cursor = conn.execute("SELECT * FROM PEDIDOS")
+for row in cursor:
+    print(row)
 
-
+conn.commit()
 # Cerrar conexión
 conn.close()
