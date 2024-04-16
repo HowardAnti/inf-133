@@ -20,7 +20,7 @@ try:
     conn.execute(
         """
         CREATE TABLE CARGOS
-        (id INTEGER PRIMATY KEY,
+        (id INTEGER PRIMARY KEY,
         nombre TEXT NOT NULL,
         nivel TEXT NOT NULL,
         fecha_creacion TEXT NOT NULL);
@@ -36,7 +36,7 @@ try:
         CREATE TABLE EMPLEADOS
         (id INTEGER PRIMARY KEY,
         nombres TEXT NOT NULL,
-        apellido_paterni TEXT NOT NULL,
+        apellido_paterno TEXT NOT NULL,
         apellido_materno TEXT NOT NULL,
         fecha_contratacion DATE NOT NULL,
         departamento_id INTEGER NOT NULL,
