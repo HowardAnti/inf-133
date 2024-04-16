@@ -105,7 +105,7 @@ for row in cursor:
 
 cursor=conn.execute(
     """
-    SELECT PLATOS.nombre, MESAS.numero
+    SELECT PLATOS.nombre
     FROM PEDIDOS
     LEFT JOIN PLATOS on PEDIDOS.plato_id= PLATOS.id
     """
