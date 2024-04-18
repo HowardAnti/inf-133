@@ -27,14 +27,15 @@ def saludar():
 
 @app.route("/sumar", methods=['GET'])
 def sumar():
-    num1=int(request.args.get("num1"))
-    num2=int(request.args.get("num2"))
+    num1=request.args.get("num1")
+    num2=request.args.get("num2")
     if not num1 or not num2:
         return(
             jsonify({"error":"Falta un parametro(s)"}),400,
         )
-    else:
-        return jsonify({"suma": f"{num1+num2}"})
+    num1=int(num1)
+    num2=int(num2)
+    return jsonify({"suma": f"{num1+num2}"})
 
 
 @app.route("/palindromo", methods=['GET'])
@@ -57,8 +58,7 @@ def contar():
         return(
             jsonify({"error":"Falta un parametro(s)"}),400,
         )
-    else:
-        return jsonify({"contar": f"{count_vowels(pal,vocal)}"})
+    return jsonify({"contar": f"{count_vowels(pal,vocal)}"})
 
 
 if __name__=='__main__':
