@@ -1,10 +1,18 @@
 from flask import Flask
 from controllers.libro_controller import libro_bp
 from database import db
+from flask_swagger_ui import get_swaggerui_blueprint
 
 app = Flask(__name__)
 
-# Configuración de la base de datos
+SWAGGER_URL = "/api/docs"  # Ruta para servir Swagger UI
+API_URL = "/statics/swagger.json"  # Ruta de tu archivo OpenAPI/Swagger
+# Inicializa el Blueprint de Swagger UI
+swagger_ui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL, API_URL, config={"app_name": "Libreria API"}
+)
+app.register_blueprint(swagger_ui_blueprint, url_prefix=SWAGGER_URL)
+
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///zoo.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
