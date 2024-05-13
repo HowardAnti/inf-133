@@ -15,7 +15,7 @@ class Libro(db.Model):
 
     # Inicializa la clase `Animal`
     def __init__(self, titulo, autor, edicion, disponibilidad):
-        self.name = titulo
+        self.titulo = titulo
         self.autor = autor
         self.edicion = edicion
         self.disponibilidad = disponibilidad

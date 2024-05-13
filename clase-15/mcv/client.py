@@ -8,13 +8,13 @@ headers = {"Content-Type": "application/json"}
 
 # Crear un nuevo animal
 url = f"{BASE_URL}/libros"
-nuevo_libro = {"titulo": "1984", "autor": "Wilde", "edicion": 5, "disponibilidad": False}
+nuevo_libro = {"titulo": "Los fantasmas de Carveville", "autor": "Wilde", "edicion": 5, "disponibilidad": True}
 response = requests.post(url, json=nuevo_libro, headers=headers)
 print("Creando un nuevo libro:")
 print(response.json())
 
-# Crear el segundo animal
-libro_2 = {"titulo": "1984", "autor": "Wilde", "edicion": 5, "disponibilidad": False}
+# Crear el segundo animal 
+libro_2 = {"titulo": "1984", "autor": "George Well", "edicion": 4, "disponibilidad": False}
 response = requests.post(url, json=libro_2, headers=headers)
 print("\nCreando el segundo libro:")
 print(response.json())
@@ -22,7 +22,7 @@ print(response.json())
 # Obtener la lista de todos los animales
 url = f"{BASE_URL}/libros"
 response = requests.get(url, headers=headers)
-print("\nLista de libroes:")
+print("\nLista de libros:")
 print(response.json())
 
 # Obtener un animal específico por su ID (por ejemplo, ID=1)

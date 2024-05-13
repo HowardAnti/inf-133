@@ -10,7 +10,7 @@ libro_bp = Blueprint("libro", __name__)
 @libro_bp.route("/libros", methods=["GET"])
 def get_libros():
     libros = Libro.get_all()
-    return jsonify(render_libro_list(libros))
+    return jsonify(render_libro_list(libros)) 
 
 
 # Ruta para obtener un animal específico por su ID
@@ -32,7 +32,7 @@ def create_libro():
     disponibilidad = data.get("disponibilidad")
 
     # Validación simple de datos de entrada
-    if not titulo or not autor or edicion or disponibilidad is None:
+    if not titulo or not autor or edicion is None or disponibilidad is None:
         return jsonify({"error": "Faltan datos requeridos"}), 400
 
     # Crear un nuevo animal y guardarlo en la base de datos
