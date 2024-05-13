@@ -34,7 +34,7 @@ def list_users():
 @user_bp.route("/users/create", methods=["GET", "POST"])
 @login_required
 def create_user():
-    if request.method == "POST":
+    if request.method == "POST": 
         # Obtenemos los datos del formulario
         first_name = request.form["first_name"]
         last_name = request.form["last_name"]

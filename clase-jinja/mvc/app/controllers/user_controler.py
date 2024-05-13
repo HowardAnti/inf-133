@@ -24,11 +24,9 @@ def registro():
         # Obtenemos los datos del formulario
         first_name = request.form['first_name']
         last_name = request.form['last_name']
-        email = request.form['email']
-        contrasena = request.form['contrasena']
-        fecha_nacimiento = datetime.strptime(request.form['fecha_nacimiento'], "%Y-%m-%d").date()
+        
         # Creamos un nuevo usuario
-        user = User(first_name, last_name, email, contrasena, fecha_nacimiento)
+        user = User(first_name, last_name)
         # Guardamos el usuario
         user.save()
         # Redirigimos a la vista de usuarios
