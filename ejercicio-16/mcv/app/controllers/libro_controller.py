@@ -1,13 +1,25 @@
 from flask import Blueprint, request, jsonify
 from models.libro_model import Libro
 from views.libro_view import render_libro_list, render_libro_detail
+from flask_jwt_extended import  verify_jwt_in_request, get_jwt_identity
+from functools import wraps
 
 # Crear un blueprint para el controlador de animales
 libro_bp = Blueprint("libro", __name__)
 
+def jwt_required(fn):
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        try:
+            verify_jwt_in_request()
+            return fn(*args, **kwargs)
+        except Exception as e:
+            return jsonify({"error": str(e)}), 401
+    return wrapper
 
 # Ruta para obtener la lista de animales
 @libro_bp.route("/libros", methods=["GET"])
+@jwt_required
 def get_libros():
     libros = Libro.get_all()
     return jsonify(render_libro_list(libros)) 
@@ -15,6 +27,7 @@ def get_libros():
 
 # Ruta para obtener un animal específico por su ID
 @libro_bp.route("/libros/<int:id>", methods=["GET"])
+@jwt_required
 def get_alibro(id):
     libro = Libro.get_by_id(id)
     if libro:
@@ -24,6 +37,7 @@ def get_alibro(id):
 
 # Ruta para crear un nuevo animal
 @libro_bp.route("/libros", methods=["POST"])
+@jwt_required
 def create_libro():
     data = request.json
     titulo = data.get("titulo")
@@ -44,6 +58,7 @@ def create_libro():
 
 # Ruta para actualizar un animal existente
 @libro_bp.route("/libros/<int:id>", methods=["PUT"])
+@jwt_required
 def update_libro(id):
     libro = Libro.get_by_id(id)
 
@@ -64,6 +79,7 @@ def update_libro(id):
 
 # Ruta para eliminar un animal existente
 @libro_bp.route("/libros/<int:id>", methods=["DELETE"])
+@jwt_required
 def delete_libro(id):
     libro= Libro.get_by_id(id)
 

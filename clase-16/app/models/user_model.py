@@ -2,7 +2,7 @@ from database import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
-
+ 
 # `db.Model` es una clase base para todos los modelos de SQLAlchemy
 # Define la clase `User` que hereda de `db.Model`
 # `User` representa la tabla `users` en la base de datos
