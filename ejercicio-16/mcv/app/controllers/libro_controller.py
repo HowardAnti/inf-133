@@ -3,23 +3,16 @@ from models.libro_model import Libro
 from views.libro_view import render_libro_list, render_libro_detail
 from flask_jwt_extended import  verify_jwt_in_request, get_jwt_identity
 from functools import wraps
+from utils.decorator import jwt_required, roles_required
 
 # Crear un blueprint para el controlador de animales
 libro_bp = Blueprint("libro", __name__)
 
-def jwt_required(fn):
-    @wraps(fn)
-    def wrapper(*args, **kwargs):
-        try:
-            verify_jwt_in_request()
-            return fn(*args, **kwargs)
-        except Exception as e:
-            return jsonify({"error": str(e)}), 401
-    return wrapper
 
 # Ruta para obtener la lista de animales
 @libro_bp.route("/libros", methods=["GET"])
 @jwt_required
+@roles_required(roles=["admin", "user"])
 def get_libros():
     libros = Libro.get_all()
     return jsonify(render_libro_list(libros)) 

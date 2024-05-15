@@ -265,11 +265,15 @@
                     },
                     "password": {
                         "type": "string"
+                    },
+                    "roles": {
+                        "type": []
                     }
                 },
                 "required": [
                     "username",
-                    "password"
+                    "password",
+                    "roles"
                 ]
             },
             "Login": {

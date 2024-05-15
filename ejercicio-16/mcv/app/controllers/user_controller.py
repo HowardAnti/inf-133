@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from models.user_model import User
 from flask_jwt_extended import create_access_token
 from werkzeug.security import check_password_hash
+from utils.decorator import jwt_required, roles_required
 
 user_bp = Blueprint("user", __name__)
 
@@ -11,8 +12,9 @@ def register():
     data = request.json
     username = data.get("username")
     password = data.get("password")
+    roles = data.get("roles")
 
-    if not username or not password:
+    if not username or not password or not roles:
         return jsonify({"error": "Se requieren nombre de usuario y contraseña"}), 400
 
     existing_user = User.find_by_username(username)
@@ -34,7 +36,7 @@ def login():
     user = User.find_by_username(username)
     if user and check_password_hash(user.password_hash, password):
         # Si las credenciales son válidas, genera un token JWT
-        access_token = create_access_token(identity=username)
+        access_token = create_access_token(identity={"username":username, "roles":user.roles})
         return jsonify(access_token=access_token), 200
     else:
         return jsonify({"error": "Credenciales inválidas"}), 401
