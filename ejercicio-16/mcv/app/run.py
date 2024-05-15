@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config["JWT_SECRET_KEY"]="tu_clave_secreta_aqui"
 
 SWAGGER_URL = "/api/docs"  # Ruta para servir Swagger UI
-API_URL = "/hwd/swagger.json"  # Ruta de tu archivo OpenAPI/Swagger
+API_URL = "/static/swagger.json"  # Ruta de tu archivo OpenAPI/Swagger
 # Inicializa el Blueprint de Swagger UI
 swagger_ui_blueprint = get_swaggerui_blueprint(
     SWAGGER_URL, API_URL, config={"app_name": "Libreria API"}
