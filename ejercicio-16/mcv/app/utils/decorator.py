@@ -24,7 +24,7 @@ def roles_required(roles=[]):
                 current_user=get_jwt_identity()
                 user_roles =json.loads(current_user.get("roles", []))
                 if not set(roles).intersection(user_roles):
-                    return jsonify({"error":"aCCESO NO AUTORIXADO"}),403
+                    return jsonify({"error":"Acceso no autorizado para este rol"}), 403
                 return fn(*args, **kwargs)
             except Exception as e:
                 return jsonify({"error": str(e)}), 401

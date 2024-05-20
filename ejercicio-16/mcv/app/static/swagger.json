@@ -7,7 +7,7 @@
     "paths": {
         "/api/libros": {
             "get": {
-                "summary": "Obtiene la lista de todos los libroes",
+                "summary": "Obtiene la lista de todos los libros",
                 "security":[
                     {
                         "JWTAuth":[]
@@ -267,7 +267,14 @@
                         "type": "string"
                     },
                     "roles": {
-                        "type": []
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "admin",
+                                "user"
+                            ]
+                        }
                     }
                 },
                 "required": [
