@@ -5,7 +5,7 @@ def render_dulce_list(dulces):
             "id": dulce.id,
             "marca": dulce.marca,
             "peso": dulce.peso,
-            "sabor": dulce.edicion,
+            "sabor": dulce.sabor,
             "origen": dulce.origen
         }
         for dulce in dulces
@@ -18,6 +18,6 @@ def render_dulce_detail(dulce):
         "id": dulce.id,
         "marca": dulce.marca,
         "peso": dulce.peso,
-        "sabor": dulce.edicion,
+        "sabor": dulce.sabor,
         "origen": dulce.origen
     }

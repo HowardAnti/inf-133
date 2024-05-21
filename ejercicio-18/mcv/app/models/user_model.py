@@ -13,7 +13,7 @@ class User(UserMixin, db.Model):
 
     def __init__(self, username, password, roles=["user"]):
         self.username = username
-        self.roles = json.sumps(roles)
+        self.roles = json.dumps(roles)
         self.password_hash = generate_password_hash(password)
 
     def save(self):

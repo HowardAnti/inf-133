@@ -22,7 +22,7 @@ class Dulce(db.Model):
     # Guarda un animal en la base de datos
     def save(self):
         db.session.add(self)
-        db.session.commit() fdfs
+        db.session.commit() 
 
     # Obtiene todos los animales de la base de datos
     @staticmethod

@@ -218,6 +218,130 @@
                     }
                 }
             }
+        },
+        "/api/usuarios": {
+            "get": {
+                "summary": "Obtiene la lista de todos los usuarios",
+                "security":[
+                    {
+                        "JWTAuth":[]
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de usuarios",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Crea un nuevo usuario por medio de admin",
+                "security": [
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "usuario creado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/usuarios/{id}": {
+            "put": {
+                "summary": "Actualiza un usuario existente por su ID",
+                "security": [
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "usuario actualizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "user no encontrado"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Elimina un usuario existente por su ID",
+                "security": [
+                    {
+                        "JWTAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "usuario eliminado"
+                    },
+                    "404": {
+                        "description": "usuario no encontrado"
+                    }
+                }
+            }
         }
     },
     
@@ -241,7 +365,7 @@
                         "type": "string"
                     },
                     "peso": {
-                        "type": "float"
+                        "type": "number"
                     },
                     "sabor": {
                         "type": "string"
@@ -267,7 +391,14 @@
                         "type": "string"
                     },
                     "roles": {
-                        "type": []
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "admin",
+                                "user"
+                            ]
+                        }
                     }
                 },
                 "required": [
