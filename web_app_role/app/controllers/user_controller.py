@@ -27,7 +27,6 @@ def index():
 
 @user_bp.route("/users")
 @login_required
-@role_required("admin")
 def list_users():
     # Obtenemos todos los usuarios
     users = User.get_all()
@@ -38,7 +37,6 @@ def list_users():
 # Definimos la ruta "/users" asociada a la función registro
 # que nos devuelve la vista de registro
 @user_bp.route("/users/create", methods=["GET", "POST"])
-@role_required("admin")
 def create_user():
     if request.method == "POST":
         # Obtenemos los datos del formulario
@@ -57,7 +55,7 @@ def create_user():
         # Guardamos el usuario
         user.save()
         flash("Usuario registrado exitosamente", "success")
-        return redirect(url_for("user.list_users"))
+        
     # Llamamos a la vista de registro
     return user_view.registro()
 
